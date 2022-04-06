@@ -7,9 +7,9 @@ const expectedObj = {id : 23};
 const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$||^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}.[a-zA-Z]{2,3}$/;
 let response;
 
-describe("/test endpoint", () => {
+describe("/test/get endpoint", () => {
     beforeAll(async () => {
-        response = await request.get("/test")
+        response = await request.get("/test/get")
     })
 
     it("should return status code 200", () => {
@@ -17,8 +17,8 @@ describe("/test endpoint", () => {
     })
 
     it("should return expected body length", () => {
-        expect(response.body).toHaveLength(expectedLength);
         expect(response.body.length).toBeGreaterThan(0);
+        expect(response.body).toHaveLength(expectedLength);
     })
 
     it("should return expected object in body", () => {
@@ -33,5 +33,29 @@ describe("/test endpoint", () => {
         response.body.forEach(element => {
             expect(element.email).toMatch(emailRegex);
         });
+    })
+})
+
+describe("/test/courses endpoint", () => {
+    const validReqBody = {
+        "name" : "course1"
+    }
+
+    const invalidReqBody = {
+        "name" : "cou"
+    }
+
+    it("should test response body", async() => {
+        response = await request
+            .post("/test/courses")
+            .send(validReqBody);
+        expect(response.body.name).toBe(validReqBody.name);
+    })
+
+    it("should return status code 400", async() => {
+        response = await request
+            .post("/test/courses")
+            .send(invalidReqBody);
+        expect(response.statusCode).toBe(400);
     })
 })
