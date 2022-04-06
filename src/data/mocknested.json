@@ -1,0 +1,67 @@
+{
+    "type": "object",
+    "properties": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/definitions/positiveInt"
+          },
+          "name": {
+            "type": "string",
+            "faker": "name.findName"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "faker": "internet.email"
+          },
+          "peeps": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 6,
+            "items": { "$ref": "#/definitions/profile" }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "peeps"
+        ]
+      }
+    },
+    "required": [
+      "user"
+    ],
+    "definitions": {
+      "positiveInt": {
+        "type": "integer",
+        "minimum": 0,
+        "exclusiveMinimum": true
+      },
+      "profile":{
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "faker": "name.firstName"
+          },
+          "lastName": {
+            "type": "string",
+            "faker": "name.lastName"
+          },
+          "age": {
+            "type": "integer",
+            "minimum": 18,
+            "maximum": 60
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "age"
+        ]
+      }
+    }
+  }
