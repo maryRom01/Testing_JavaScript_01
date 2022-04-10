@@ -1,4 +1,4 @@
-# Testing_JavaScript_01
+# API tests JavaScript (Node.js, Express, Supertest, GitHub Actions)
 
 Example of API tests:
 
